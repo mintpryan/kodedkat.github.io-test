@@ -5,7 +5,7 @@ export class Pokemon extends GameObject {
         });
 
         const sprite = new Sprite({
-            resource: resources.images.rod,
+            resource: resource.images.rod,
             position: new Vector2(0, -5)
         });
         this.addChild(sprite);
@@ -27,7 +27,7 @@ export class Pokemon extends GameObject {
     onCollideWithTrainer() {
         this.destroy();
         events.emit("trainer_catches_pokemon", {
-            image: resources.images.pokemon,
+            image: resource.images.pokemon,
             position: this.position
         });
     }
