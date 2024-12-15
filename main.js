@@ -52,19 +52,19 @@ class Trainer extends GameObject {
 const gridCells = (cells) => cells * 16;
 
 const skySprite = new Sprite({
-  resource: resources.images.sky,
+  resource: resource.images.sky,
   frameSize: new Vector2(320, 180)
 });
 
 const groundSprite = new Sprite({
-  resource: resources.images.ground,
+  resource: resource.images.ground,
   frameSize: new Vector2(320, 180)
 });
 mainScene.addChild(groundSprite);
 
 const trainer = new Trainer(gridCells(6), gridCells(5));
 trainer.sprite = new Sprite({
-  resource: resources.images.trainer,
+  resource: resource.images.trainer,
   frameSize: new Vector2(32, 32),
   hFrames: 3,
   vFrames: 8,
@@ -82,27 +82,27 @@ trainer.animations = new Animations({
 mainScene.addChild(trainer);
 
 const shadow = new Sprite({
-  resource: resources.images.shadow,
+  resource: resource.images.shadow,
   frameSize: new Vector2(32, 32)
 });
 
 let isInsideCafe = false;
 
 const cafeExteriorSprite = new Sprite({
-  resource: resources.images.cafeExterior,
+  resource: resource.images.cafeExterior,
   frameSize: new Vector2(64, 64)
 });
 cafeExteriorSprite.position = new Vector2(gridCells(10), gridCells(8));
 mainScene.addChild(cafeExteriorSprite);
 
 const cafeInteriorSprite = new Sprite({
-  resource: resources.images.cafeInterior,
+  resource: resource.images.cafeInterior,
   frameSize: new Vector2(320, 180)
 });
 cafeInteriorSprite.visible = false;
 
 const sawsbucksLogoSprite = new Sprite({
-  resource: resources.images.sawsbucksLogo,
+  resource: resource.images.sawsbucksLogo,
 });
 sawsbucksLogoSprite.position = new Vector2(gridCells(12), gridCells(10));
 cafeInteriorSprite.addChild(sawsbucksLogoSprite);
