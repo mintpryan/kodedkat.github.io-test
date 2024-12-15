@@ -1,14 +1,9 @@
 import { GameObject, Sprite, Vector2, Input, Animations, FrameIndexPattern, GameLoop } from "./your-game-engine.js";
 import { WALK_DOWN, WALK_UP, WALK_LEFT, WALK_RIGHT, STAND_DOWN, STAND_UP, STAND_LEFT, STAND_RIGHT } from "./animations.js";
-FrameIndexPattern.js
-your-game-engine.js
 import { resources } from "./resources.js";
 import { camera } from "./camera.js";
-import { espeon } from "./espeon.js";
 import { inventory } from "./inventory.js";
 import { events } from "./events.js";
-import { heroAnimations } from "./heroAnimations.js";
-vite.svg
 
 const canvas = document.querySelector("#game-canvas");
 const ctx = canvas.getContext("2d");
@@ -26,16 +21,16 @@ class Trainer extends GameObject {
     this.destinationPosition = this.position.duplicate();
     this.sprite = null;
     this.animations = null;
-    this.itemPickupTime = 0; // Added itemPickupTime
+    this.itemPickupTime = 0;
   }
 
   tryMove(root) {
-    // ... (unchanged)
+    // Implement movement logic
   }
 
   step(delta, root) {
     if (this.itemPickupTime > 0) {
-      this.workOnItemPickup(delta); // Fixed method name
+      this.workOnItemPickup(delta);
       return;
     }
 
@@ -46,11 +41,10 @@ class Trainer extends GameObject {
     }
 
     this.sprite.step(delta);
-    this.animations.update(delta); // Added animation update
+    this.animations.update(delta);
   }
 
   workOnItemPickup(delta) {
-    // Implementation for item pickup
     this.itemPickupTime -= delta;
   }
 }
@@ -74,7 +68,6 @@ trainer.sprite = new Sprite({
   frameSize: new Vector2(32, 32),
   hFrames: 3,
   vFrames: 8,
-  frame: 1,
 });
 trainer.animations = new Animations({
   walkDown: new FrameIndexPattern(WALK_DOWN),
@@ -96,50 +89,79 @@ const shadow = new Sprite({
 const camera = new Camera();
 mainScene.addChild(camera);
 
-const pokemon = new Pokemon(gridCells(7), gridCells(6)); // Fixed class name
-// mainScene.addChild(pokemon);
+let isInsideCafe = false;
 
-const inventory = new Inventory();
-mainScene.input = new Input();
+const cafeExteriorSprite = new Sprite({
+  resource: resources.images.cafeExterior,
+  frameSize: new Vector2(64, 64)
+});
+cafeExteriorSprite.position = new Vector2(gridCells(10), gridCells(8));
+mainScene.addChild(cafeExteriorSprite);
 
-events.on("trainer_position", (pos) => {
-  const roundedTrainerX = Math.round(pos.x);
-  const roundedTrainerY = Math.round(pos.y);
-  if (roundedTrainerX === pokemon.position.x && roundedTrainerY === pokemon.position.y) {
-    pokemon.onCollideWithTrainer();
+const cafeInteriorSprite = new Sprite({
+  resource: resources.images.cafeInterior,
+  frameSize: new Vector2(320, 180)
+});
+cafeInteriorSprite.visible = false;
+
+const sawsbucksLogoSprite = new Sprite({
+  resource: resources.images.sawsbucksLogo,
+});
+sawsbucksLogoSprite.position = new Vector2(gridCells(12), gridCells(10));
+cafeInteriorSprite.addChild(sawsbucksLogoSprite);
+
+mainScene.addChild(cafeInteriorSprite);
+
+function checkEntrance(playerX, playerY) {
+  const entranceX = gridCells(10); // Adjust based on your cafe position
+  const entranceY = gridCells(8); // Adjust based on your cafe position
+  const entranceRadius = gridCells(1);
+
+  const distance = Math.sqrt(Math.pow(playerX - entranceX, 2) + Math.pow(playerY - entranceY, 2));
+  
+  if (distance < entranceRadius) {
+    isInsideCafe = !isInsideCafe;
+    if (isInsideCafe) {
+      trainer.position.set(gridCells(11), gridCells(9)); // Interior spawn point
+      cafeExteriorSprite.visible = false;
+      cafeInteriorSprite.visible = true;
+    } else {
+      trainer.position.set(gridCells(10), gridCells(7)); // Exterior spawn point
+      cafeExteriorSprite.visible = true;
+      cafeInteriorSprite.visible = false;
+    }
+  }
+}
+
+function drawScene() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+  skySprite.drawImage(ctx, camera.position.x, camera.position.y);
+  
+  ctx.save();
+  
+  ctx.translate(camera.position.x, camera.position.y);
+  
+  mainScene.draw(ctx);
+
+  shadow.drawImage(ctx, trainer.position.x - shadow.frameSize.x / 2, trainer.position.y - shadow.frameSize.y / 2);
+  
+  ctx.restore();
+}
+
+document.addEventListener("keydown", (event) => {
+  if (event.key === "e") {
+    checkEntrance(trainer.position.x, trainer.position.y);
   }
 });
 
-function ready() {
-  // Implementation for ready function
-}
-
-const update = (delta) => {
-  mainScene.stepEntry(delta, mainScene);
+const updateGameLoop = (delta) => {
+   mainScene.stepEntry(delta);
 };
 
-const draw = () => {
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-  skySprite.drawImage(ctx, 0, 0);
-
-  ctx.save();
-  ctx.translate(camera.position.x, camera.position.y); // Fixed typo
-
-  mainScene.draw(ctx, 0, 0);
-
-  // center trainer in cell
-  const trainerOffset = new Vector2(-8, -21);
-  const trainerPositionX = trainer.position.x + trainerOffset.x;
-  const trainerPositionY = trainer.position.y + trainerOffset.y;
-
-  shadow.drawImage(ctx, trainer.position.x, trainer.position.y);
-  trainer.sprite.drawImage(ctx, trainerPositionX, trainerPositionY);
-
-  ctx.restore();
-
-  inventory.draw(ctx, 0, 0);
+const drawGameLoop = () => {
+   drawScene();
 };
 
-const gameLoop = new GameLoop(update, draw);
+const gameLoop = new GameLoop(updateGameLoop, drawGameLoop);
 gameLoop.start();
