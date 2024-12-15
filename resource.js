@@ -1,6 +1,6 @@
-class Resources {
+class Resource {
     constructor() {
-        // Object containing paths to image resources
+        // Object containing paths to image resource
         this.toLoad = {
             sky: "/sprites/sky.png",
             ground: "sprites/ground.png",
@@ -27,4 +27,4 @@ class Resources {
     }
 }
 
-export const resources = new Resources();
+export const resource = new Resource();
