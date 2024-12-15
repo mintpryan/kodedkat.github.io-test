@@ -1,6 +1,6 @@
 import { GameObject, Sprite, Vector2, Input, Animations, FrameIndexPattern, GameLoop } from './your-game-engine.js';
 import { WALK_DOWN, WALK_UP, WALK_LEFT, WALK_RIGHT, STAND_DOWN, STAND_UP, STAND_LEFT, STAND_RIGHT } from './animations.js';
-import { resources } from './resources.js';
+import { resource } from './resource.js';
 import { Camera } from './Camera.js'; // Added import for Camera
 import { espeon } from './espeon.js'; // Added import for espeon
 import { Inventory } from './Inventory.js'; // Added import for Inventory
@@ -54,19 +54,19 @@ class Trainer extends GameObject {
 const gridCells = (cells) => cells * 16;
 
 const skySprite = new Sprite({
-  resource: resources.images.sky,
+  resource: resource.images.sky,
   frameSize: new Vector2(320, 180)
 });
 
 const groundSprite = new Sprite({
-  resource: resources.images.ground,
+  resource: resource.images.ground,
   frameSize: new Vector2(320, 180)
 });
 mainScene.addChild(groundSprite);
 
 const trainer = new Trainer(gridCells(6), gridCells(5));
 trainer.sprite = new Sprite({
-  resource: resources.images.trainer,
+  resource: resource.images.trainer,
   frameSize: new Vector2(32, 32),
   hFrames: 3,
   vFrames: 8,
@@ -85,7 +85,7 @@ trainer.animations = new Animations({
 mainScene.addChild(trainer);
 
 const shadow = new Sprite({
-  resource: resources.images.shadow,
+  resource: resource.images.shadow,
   frameSize: new Vector2(32, 32)
 });
 
