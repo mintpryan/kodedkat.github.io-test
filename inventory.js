@@ -1,7 +1,7 @@
 import { GameObject } from "../../GameObject.js";
 import { sprite } from "../../sprite.js";
 import { resource } from "../../resource.js";
-import { Vector2 } from "../../Vector2.js";
+import { Vector2 } from "../../Vector2.ts";
 import { events } from "../../events.js";
 
 export class Inventory extends GameObject {
