@@ -1,6 +1,6 @@
 import { GameObject } from "../../GameObject.js";
 import { sprite } from "../../sprite.js";
-import { resources } from "../../resource.js";
+import { resource } from "../../resource.js";
 import { Vector2 } from "../../Vector2.js";
 import { events } from "../../events.js";
 
@@ -18,7 +18,7 @@ export class Inventory extends GameObject {
             this.nextId += 1;
             this.items.push({
                 id: this.nextId,
-                image: resources.images.pokemon
+                image: resource.images.pokemon
             });
             this.renderInventory();
         });
