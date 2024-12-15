@@ -1,9 +1,9 @@
-import { GameObject, Sprite, Vector2, Input, Animations, FrameIndexPattern, GameLoop } from "../../your-game-engine.js";
-import { WALK_DOWN, WALK_UP, WALK_LEFT, WALK_RIGHT, STAND_DOWN, STAND_UP, STAND_LEFT, STAND_RIGHT } from "..//../trainerAnimations.js";
-import { resource } from "../../resource.js";
-import { camera } from "../../camera.js";
-import { inventory } from "../../inventory.js";
-import { events } from "../../events.js";
+import { GameObject, Sprite, Vector2, Input, Animations, FrameIndexPattern, GameLoop } from "./your-game-engine.js";
+import { WALK_DOWN, WALK_UP, WALK_LEFT, WALK_RIGHT, STAND_DOWN, STAND_UP, STAND_LEFT, STAND_RIGHT } from "./animations.js";
+import { resources } from "./resources.js";
+import { camera } from "./camera.js";
+import { inventory } from "./inventory.js";
+import { events } from "./events.js";
 
 const canvas = document.querySelector("#game-canvas");
 const ctx = canvas.getContext("2d");
@@ -52,19 +52,19 @@ class Trainer extends GameObject {
 const gridCells = (cells) => cells * 16;
 
 const skySprite = new Sprite({
-  resource: resource.images.sky,
+  resource: resources.images.sky,
   frameSize: new Vector2(320, 180)
 });
 
 const groundSprite = new Sprite({
-  resource: resource.images.ground,
+  resource: resources.images.ground,
   frameSize: new Vector2(320, 180)
 });
 mainScene.addChild(groundSprite);
 
 const trainer = new Trainer(gridCells(6), gridCells(5));
 trainer.sprite = new Sprite({
-  resource: resource.images.trainer,
+  resource: resources.images.trainer,
   frameSize: new Vector2(32, 32),
   hFrames: 3,
   vFrames: 8,
@@ -82,27 +82,30 @@ trainer.animations = new Animations({
 mainScene.addChild(trainer);
 
 const shadow = new Sprite({
-  resource: resource.images.shadow,
+  resource: resources.images.shadow,
   frameSize: new Vector2(32, 32)
 });
+
+const camera = new Camera();
+mainScene.addChild(camera);
 
 let isInsideCafe = false;
 
 const cafeExteriorSprite = new Sprite({
-  resource: resource.images.cafeExterior,
+  resource: resources.images.cafeExterior,
   frameSize: new Vector2(64, 64)
 });
 cafeExteriorSprite.position = new Vector2(gridCells(10), gridCells(8));
 mainScene.addChild(cafeExteriorSprite);
 
 const cafeInteriorSprite = new Sprite({
-  resource: resource.images.cafeInterior,
+  resource: resources.images.cafeInterior,
   frameSize: new Vector2(320, 180)
 });
 cafeInteriorSprite.visible = false;
 
 const sawsbucksLogoSprite = new Sprite({
-  resource: resource.images.sawsbucksLogo,
+  resource: resources.images.sawsbucksLogo,
 });
 sawsbucksLogoSprite.position = new Vector2(gridCells(12), gridCells(10));
 cafeInteriorSprite.addChild(sawsbucksLogoSprite);
@@ -156,9 +159,25 @@ const updateGameLoop = (delta) => {
    mainScene.stepEntry(delta);
 };
 
+  // clear anything stale
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+  // save current state (for camera offset)
+  ctx.save();
+
+  // offset by camera position
+  ctx.translate(camera.position.x, camera.position.y);
+
+  // draw objects in mounted scene
+  mainScene.draw(ctx, 0, 0);
+
+  // restore to original state
+  ctx.restore();
+
 const drawGameLoop = () => {
    drawScene();
 };
 
+// start game
 const gameLoop = new GameLoop(updateGameLoop, drawGameLoop);
 gameLoop.start();
