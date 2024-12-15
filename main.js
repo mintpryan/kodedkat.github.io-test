@@ -1,9 +1,9 @@
-import { GameObject, Sprite, Vector2, Input, Animations, FrameIndexPattern, GameLoop } from "./your-game-engine.js";
-import { WALK_DOWN, WALK_UP, WALK_LEFT, WALK_RIGHT, STAND_DOWN, STAND_UP, STAND_LEFT, STAND_RIGHT } from "./animations.js";
-import { resources } from "./resources.js";
-import { camera } from "./camera.js";
-import { inventory } from "./inventory.js";
-import { events } from "./events.js";
+import { GameObject, Sprite, Vector2, Input, Animations, FrameIndexPattern, GameLoop } from "../../your-game-engine.js";
+import { WALK_DOWN, WALK_UP, WALK_LEFT, WALK_RIGHT, STAND_DOWN, STAND_UP, STAND_LEFT, STAND_RIGHT } from "..//../trainerAnimations.js";
+import { resources } from "../../resources.js";
+import { camera } from "../../camera.js";
+import { inventory } from "../../inventory.js";
+import { events } from "../../events.js";
 
 const canvas = document.querySelector("#game-canvas");
 const ctx = canvas.getContext("2d");
