@@ -1,0 +1,66 @@
+html, body {
+    height: 100%;
+}
+
+body {
+    padding-top: 3em;
+    background: url("/room-with-character.png") no-repeat, #dfd4f7;
+    background-size: 776px;
+    background-position: center bottom;
+    image-rendering: pixelated;
+}
+
+.Hud {
+    display: flex;
+    position: absolute;
+    top: 2em;
+    left:2em;
+}
+
+.HeartsGrid {
+    display: grid;
+    grid-template-columns: repeat(10, 40px);
+    margin-bottom: 1em;
+}
+.Heart {
+    width: 32px;
+    margin-right: 6px;
+    margin-bottom: 6px;
+    display: block;
+}
+
+.MagicBar {
+    margin-bottom: 1em;
+}
+
+.Sidebar {
+    position: fixed;
+    right: 0;
+    top:0;
+    bottom:0;
+    width: 10em;
+    padding: 1em;
+}
+
+.MinMaxButton {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1em;
+}
+.MinMaxButton button {
+    cursor:pointer;
+    background: transparent;
+    border:0;
+    width: 3em;
+    height: 3em;
+    margin-left: 0.5em;
+    padding:0;
+}
+.MinMaxButton button svg {
+    display: block;
+    margin: 0 auto;
+}
+.MinMaxButton button svg path {
+    fill: #393232;
+}
