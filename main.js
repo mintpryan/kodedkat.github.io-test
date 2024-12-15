@@ -86,7 +86,6 @@ const shadow = new Sprite({
   frameSize: new Vector2(32, 32)
 });
 
-const camera = new Camera();
 mainScene.addChild(camera);
 
 let isInsideCafe = false;
