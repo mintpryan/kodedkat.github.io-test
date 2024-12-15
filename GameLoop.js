@@ -69,7 +69,7 @@ class Sprite {
   }
 }
 
-const resources = {
+const resource = {
   images: {
     sky: new Image(),
     ground: new Image(),
@@ -79,13 +79,13 @@ const resources = {
 };
 
 // Load images
-resources.images.sky.src = 'path/to/sky.png';
-resources.images.ground.src = 'path/to/ground.png';
-resources.images.hero.src = 'path/to/hero.png';
-resources.images.shadow.src = 'path/to/shadow.png';
+resource.images.sky.src = 'path/to/sky.png';
+resource.images.ground.src = 'path/to/ground.png';
+resource.images.hero.src = 'path/to/hero.png';
+resource.images.shadow.src = 'path/to/shadow.png';
 
 let assetsLoaded = 0;
-const totalAssets = Object.keys(resources.images).length;
+const totalAssets = Object.keys(resource.images).length;
 
 function onAssetLoad() {
   assetsLoaded++;
@@ -94,23 +94,23 @@ function onAssetLoad() {
   }
 }
 
-Object.values(resources.images).forEach(img => {
+Object.values(resource.images).forEach(img => {
   img.onload = onAssetLoad;
 });
 
 function initGame() {
   const skySprite = new Sprite({
-    resource: resources.images.sky,
+    resource: resource.images.sky,
     frameSize: new Vector2(320, 180)
   });
 
   const groundSprite = new Sprite({
-    resource: resources.images.ground,
+    resource: resource.images.ground,
     frameSize: new Vector2(320, 180)
   });
 
   const trainerSprite = new Sprite({
-    resource: resources.images.hero,
+    resource: resource.images.hero,
     frameSize: new Vector2(32, 32),
     hFrames: 3,
     vFrames: 8,
@@ -118,7 +118,7 @@ function initGame() {
   });
 
   const shadowSprite = new Sprite({
-    resource: resources.images.shadow,
+    resource: resource.images.shadow,
     frameSize: new Vector2(32, 32)
   });
 
