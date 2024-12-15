@@ -1,5 +1,5 @@
 import { GameObject } from "../../GameObject.js";
-import { Sprite } from "../../Sprite.js";
+import { sprite } from "../../sprite.js";
 import { resources } from "../../resource.js";
 import { Vector2 } from "../../Vector2.js";
 import { events } from "../../events.js";
@@ -13,7 +13,7 @@ export class Inventory extends GameObject {
         this.nextId = 0;
         this.items = [];
 
-        // react to trainer catching pokemon
+        // react to trainer catching espeon
         events.on("TRAINER_CATCHES_POKEMON", data => {
             this.nextId += 1;
             this.items.push({
