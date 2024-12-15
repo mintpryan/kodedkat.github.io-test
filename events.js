@@ -41,20 +41,20 @@ class Events {
 
 // build up scene by adding sky, ground, and trainer
 const skySprite = new Sprite({
-    resource: resources.images.sky,
+    resource: resource.images.sky,
     frameSize: new Vector2(320, 180)
 });
 mainScene.addChild(skySprite);
 
 const groundSprite = new Sprite({
-    resource: resources.images.ground,
+    resource: resource.images.ground,
     frameSize: new Vector2(320, 180)
 });
 mainScene.addChild(groundSprite);
 
 const trainer = new Trainer(gridCells(6), gridCells(5));
 trainer.sprite = new Sprite({
-    resource: resources.images.trainer,
+    resource: resource.images.trainer,
     frameSize: new Vector2(32, 32),
     hFrames: 3,
     vFrames: 8,
@@ -76,7 +76,7 @@ mainScene.addChild(trainer);
 mainScene.input = new Input();
 
 const shadow = new Sprite({
-    resource: resources.images.shadow,
+    resource: resource.images.shadow,
     frameSize: new Vector2(32, 32)
 });
 
