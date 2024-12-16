@@ -1,5 +1,5 @@
 import { FrameIndexPattern } from "./FrameIndexPattern.js";
-import { WALK_DOWN, WALK_LEFT, WALK_RIGHT, WALK_UP, STAND_DOWN, STAND_UP, STAND_LEFT, STAND_RIGHT } from "./objects/hero/heroAnimations.js";
+import { WALK_DOWN, WALK_LEFT, WALK_RIGHT, WALK_UP, STAND_DOWN, STAND_UP, STAND_LEFT, STAND_RIGHT } from "../../objects/hero/heroAnimations.js";
 
 export class Animations {
     constructor(patterns) {
