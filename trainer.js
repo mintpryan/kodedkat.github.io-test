@@ -1,7 +1,7 @@
 import { GameObject } from "../../GameObject.js";
 import { Vector2 } from "../../Vector2.js";
 
-export class Hero extends GameObject {
+export class trainer extends GameObject {
     constructor(x, y) {
         super({
             position: new Vector2(x, y)
@@ -42,7 +42,7 @@ export class Hero extends GameObject {
         }
         this.facing = input.direction ?? this.facing;
 
-        // Update the hero's position
+        // Update the trainer's position
         this.position.x = nextX;
         this.position.y = nextY;
     }
