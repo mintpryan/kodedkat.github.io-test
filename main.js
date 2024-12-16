@@ -1,6 +1,6 @@
 import { GameObject, Sprite, Vector2, Input, Animations, FrameIndexPattern, GameLoop } from "./your-game-engine.js";
 import { WALK_DOWN, WALK_UP, WALK_LEFT, WALK_RIGHT, STAND_DOWN, STAND_UP, STAND_LEFT, STAND_RIGHT } from "./animations.js";
-import { resources } from "./resources.js";
+import { resources } from "./resource.js";
 import { camera } from "./camera.js";
 import { inventory } from "./inventory.js";
 import { events } from "./events.js";
@@ -86,7 +86,6 @@ const shadow = new Sprite({
   frameSize: new Vector2(32, 32)
 });
 
-const camera = new Camera();
 mainScene.addChild(camera);
 
 let isInsideCafe = false;
